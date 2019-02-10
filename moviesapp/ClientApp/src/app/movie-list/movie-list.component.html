@@ -1,0 +1,48 @@
+<mat-slide-toggle (click)="expandState()">Expand All</mat-slide-toggle>
+<mat-slide-toggle style="margin-left: 10px;" (click)="toEdit()">Edit</mat-slide-toggle>
+
+<div style="margin-top: 20px; margin-bottom:50px;">
+  <mat-form-field style="width: 490px; margin-right: 10px">
+    <input type="text" placeholder="Search Movies" matInput [formControl]="query" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of options | async" [value]="option.Title">
+        {{option.Title}} ({{option.Year}})
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+ <mat-form-field style="width:490px;">
+  <input type="text" placeholder="Enter List Title" matInput [formControl]="listQuery" [matAutocomplete]="auto2">
+  <mat-autocomplete #auto2="matAutocomplete">
+    <mat-option *ngFor="let item of listTitles | async" [value]="item.listTitle">
+      {{item.listTitle}}
+    </mat-option>
+  </mat-autocomplete>
+ </mat-form-field><br />
+ <button (click)="addMovie()" mat-flat-button color="primary">Add</button>
+</div>
+
+<div style="float: left; width:500px;" *ngFor="let item of listTitles | async">
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"
+                       [expanded]="allExpandState">
+    <mat-expansion-panel-header>
+      <mat-panel-title style="flex: 50;">
+        <h4 mat-line>{{item.listTitle}}</h4>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list style="margin-left:30px;">
+      <div *ngFor="let subItem of item.sublist">
+        <mat-list-item>
+          <div style="display: inline-block">
+            <a>
+              <p mat-line> {{subItem.title}}</p>
+            </a>
+          </div>
+          <div *ngIf="listEdit" style="position:absolute;right:0px; bottom: 13px;">
+            <button mat-flat-button color="warn" (click)="removeMovie(subItem.id)">Remove</button>
+          </div>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </mat-expansion-panel>
+</div>
