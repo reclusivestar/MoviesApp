@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import _ from "lodash";
+import { MatSnackBar } from '@angular/material';
 
 import { MovieService } from "../movie.service";
 import { Movie } from "../movie";
@@ -23,7 +24,7 @@ export class MovieListComponent implements OnInit {
   public allExpandState: boolean = false;
   private movie: Movie;
 
-  constructor(private dataService: MovieService) {
+  constructor(private dataService: MovieService, private snackBar: MatSnackBar) {
     this.movie = new Movie();
   }
 
@@ -61,5 +62,6 @@ export class MovieListComponent implements OnInit {
     this.movie.title = this.query.value;
     this.movie.listTitle = this.listQuery.value;
     this.dataService.addMovie(this.movie);
+    this.snackBar.open(`Added ${this.query.value} to ${this.listQuery.value}`, 'Done', { duration: 4000 });
   }
 }
