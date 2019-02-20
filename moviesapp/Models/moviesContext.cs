@@ -28,6 +28,9 @@ namespace moviesapp.Models
                 entity.Property(e => e.listTitle)
                  .HasMaxLength(255)
                  .IsUnicode(false);
+                entity.Property(e => e.imdbID)
+                .HasMaxLength(200)
+                .IsUnicode(false);
             });
         }
     }

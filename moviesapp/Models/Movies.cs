@@ -22,5 +22,10 @@ namespace moviesapp.Models
             get;
             set;
         }
+        public string imdbID
+        {
+            get;
+            set;
+        }
     }
 }

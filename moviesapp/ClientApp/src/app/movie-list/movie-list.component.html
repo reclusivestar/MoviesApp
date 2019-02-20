@@ -1,24 +1,25 @@
-<mat-slide-toggle style="margin-top: 50px;" (click)="expandState()">Expand All</mat-slide-toggle>
-<mat-slide-toggle style="margin-left: 10px;" (click)="toEdit()">Edit</mat-slide-toggle>
+<mat-slide-toggle style="margin-top: 50px;" (click)="expandState()">Expand All Lists</mat-slide-toggle>
+<mat-slide-toggle style="margin-left: 10px;" (click)="toEdit()">Edit Lists</mat-slide-toggle>
 
 <div style="margin-top: 20px; margin-bottom:50px;">
+  <mat-form-field style="width:490px;">
+    <input type="text" placeholder="Enter new list title/select list from the dropdown" matInput [formControl]="listQuery" [matAutocomplete]="auto2">
+    <mat-autocomplete #auto2="matAutocomplete">
+      <mat-option *ngFor="let item of listTitles | async" [value]="item.listTitle">
+        {{item.listTitle}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field><br />
   <mat-form-field style="width: 490px; margin-right: 10px">
     <input type="text" placeholder="Search Movies" matInput [formControl]="query" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of options | async" [value]="option.Title">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of options | async" [value]="option">
         {{option.Title}} ({{option.Year}})
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
- <mat-form-field style="width:490px;">
-  <input type="text" placeholder="Enter List Title" matInput [formControl]="listQuery" [matAutocomplete]="auto2">
-  <mat-autocomplete #auto2="matAutocomplete">
-    <mat-option *ngFor="let item of listTitles | async" [value]="item.listTitle">
-      {{item.listTitle}}
-    </mat-option>
-  </mat-autocomplete>
- </mat-form-field><br />
- <button (click)="addMovie()" mat-flat-button color="primary">Add</button>
+  <br />
+  <button (click)="addMovie()" mat-flat-button color="primary">Add</button>
 </div>
 
 <div style="float: left; width:500px;" *ngFor="let item of listTitles | async">
@@ -34,8 +35,9 @@
       <div *ngFor="let subItem of item.sublist">
         <mat-list-item>
           <div style="display: inline-block">
-            <a>
-              <p mat-line> {{subItem.title}}</p>
+            <a href="{{subItem.imdbID}}" target="_blank">
+              <p style="width:300px;"> {{subItem.title}}</p>
+              <hr />
             </a>
           </div>
           <div *ngIf="listEdit" style="position:absolute;right:0px; bottom: 13px;">

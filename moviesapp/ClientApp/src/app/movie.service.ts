@@ -49,7 +49,6 @@ export class MovieService {
   }
 
   public addMovie(movie: Movie) {
-    console.log("add movie");
     var headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('add movie : ' + JSON.stringify(movie));
@@ -85,7 +84,7 @@ export class MovieService {
       });
 
       this._movieList.next(Object.assign({}, this.dataStore).movieList);
-    }, error => console.log('Could not delete Employee.'));
+    }, error => console.log('Could not delete.'));
   }
 }
 

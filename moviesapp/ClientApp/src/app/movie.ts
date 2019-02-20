@@ -5,4 +5,6 @@ export class Movie {
   title: string;
   listTitle: string;
   sublist: Observable<Movie[]>;
+  imdbID: string;
+  Title: string;
 }

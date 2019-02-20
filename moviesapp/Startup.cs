@@ -64,10 +64,10 @@ namespace moviesapp
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                /*if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
-                }
+                }*/
             });
         }
     }

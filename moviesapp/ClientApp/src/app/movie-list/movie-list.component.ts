@@ -59,9 +59,14 @@ export class MovieListComponent implements OnInit {
       alert('Enter non-empty list title and movie name');
       return;
     }
-    this.movie.title = this.query.value;
+    this.movie.id = Math.floor(Math.random() * 100000) + 1;
+    this.movie.title = this.query.value.Title;
+    this.movie.imdbID = "https://www.imdb.com/title/" + this.query.value.imdbID;
     this.movie.listTitle = this.listQuery.value;
     this.dataService.addMovie(this.movie);
-    this.snackBar.open(`Added ${this.query.value} to ${this.listQuery.value}`, 'Done', { duration: 4000 });
+    this.snackBar.open(`Added ${this.query.value.Title} to ${this.listQuery.value}`, 'Done', { duration: 4000 });
+  }
+  public displayFn(movie?: Movie): string | undefined {
+    return movie ? movie.Title : undefined;
   }
 }
